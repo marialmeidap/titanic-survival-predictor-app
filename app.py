@@ -17,11 +17,13 @@ parch = st.number_input("Number of Parents/Children Aboard", 0, 10, 0)
 fare = st.number_input("Ticket Fare ($)", 0.0, 500.0, 50.0)
 embarked = st.selectbox("Port of Embarkation", ["S", "C", "Q"])
 
-sex = 1 if sex == "male" else 0
+# Convert categorical inputs to match training features
+sex_male = 1 if sex == "male" else 0
 embarked_S = 1 if embarked == "S" else 0
 embarked_C = 1 if embarked == "C" else 0
 embarked_Q = 1 if embarked == "Q" else 0
 
+# Create DataFrame with correct feature names
 input_data = pd.DataFrame({
     'Pclass': [pclass],
     'Age': [age],
@@ -32,6 +34,7 @@ input_data = pd.DataFrame({
     'Embarked_Q': [embarked_Q],
     'Embarked_S': [embarked_S]
 })
+
 
 prediction = model.predict(input_data)[0]
 result = "🟢 Survived" if prediction == 1 else "🔴 Did not survive"
